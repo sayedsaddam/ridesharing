@@ -22,6 +22,8 @@ class DepartmentResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';
 
+    protected static?string $navigationGroup = 'System Management';
+
     public static function form(Form $form): Form
     {
         return $form
@@ -29,6 +31,9 @@ class DepartmentResource extends Resource
                 Card::make()
                 ->schema([
                     TextInput::make('name')
+                        ->required()
+                        ->placeholder('Department Name')
+                        ->maxLength(255)
                 ])
             ]);
     }

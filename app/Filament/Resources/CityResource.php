@@ -23,6 +23,8 @@ class CityResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';
 
+    protected static?string $navigationGroup = 'System Management';
+
     public static function form(Form $form): Form
     {
         return $form
@@ -30,8 +32,12 @@ class CityResource extends Resource
                 Card::make()
                 ->schema([
                     Select::make('state_id')
-                    ->relationship('state', 'name'),
+                        ->relationship('state', 'name')
+                        ->required(),
                     TextInput::make('name')
+                        ->required()
+                        ->placeholder('City Name')
+                        ->maxLength(255)
                 ])
             ]);
     }

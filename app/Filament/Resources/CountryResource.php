@@ -22,14 +22,21 @@ class CountryResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';
 
+    protected static?string $navigationGroup = 'System Management';
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Card::make()
                 ->schema([
-                    TextInput::make('country_code'),
+                    TextInput::make('country_code')
+                        ->maxLength(5)
+                        ->required()
+                        ->placeholder('Country Code'),
                     TextInput::make('name')
+                        ->required()
+                        ->placeholder('Country Name'),
                 ])
             ]);
     }
