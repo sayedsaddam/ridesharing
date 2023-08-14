@@ -14,6 +14,8 @@ use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\CountryResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\CountryResource\RelationManagers;
+use App\Filament\Resources\CountryResource\RelationManagers\EmployeesRelationManager;
+use App\Filament\Resources\CountryResource\RelationManagers\StatesRelationManager;
 use Filament\Tables\Columns\TextColumn;
 
 class CountryResource extends Resource
@@ -64,7 +66,8 @@ class CountryResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            EmployeesRelationManager::class,
+            StatesRelationManager::class
         ];
     }
 
