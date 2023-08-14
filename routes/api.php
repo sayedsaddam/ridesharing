@@ -1,10 +1,12 @@
 <?php
 
-use App\Http\Controllers\DriverController;
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\TripController;
+use App\Models\Employee;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TripController;
+use App\Http\Resources\EmployeeResource;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\DriverController;
 
 // Route::get('/hello', function(){
 //     return response()->json([
@@ -12,6 +14,11 @@ use Illuminate\Support\Facades\Route;
 //         'description' => 'Hello, World! Testing the API call here.'
 //     ]);
 // });
+
+Route::get('/employees', function(){
+    $employees = Employee::orderBy('last_name', 'DESC')->get();
+    return EmployeeResource::collection($employees);
+});
 
 Route::post('/login', [LoginController::class, 'submit']);
 Route::post('/login/verify', [LoginController::class, 'verify']);
