@@ -1,6 +1,7 @@
 <?php
 
 use App\Filament\Resources\EmployeeResource\Widgets\EmployeeStatsOverview;
+use App\Filament\Resources\PostResource\Widgets\PostStatsOverview;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Http\Middleware\MirrorConfigToSubpackages;
@@ -143,6 +144,7 @@ return [
             Widgets\AccountWidget::class,
             Widgets\FilamentInfoWidget::class,
             EmployeeStatsOverview::class,
+            PostStatsOverview::class
         ],
     ],
 
