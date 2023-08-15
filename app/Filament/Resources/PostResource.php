@@ -3,7 +3,6 @@
 namespace App\Filament\Resources;
 
 use Closure;
-use Filament\Forms;
 use App\Models\Post;
 use Filament\Tables;
 use Illuminate\Support\Str;
@@ -11,20 +10,19 @@ use Filament\Resources\Form;
 use Filament\Resources\Table;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\Card;
+use Filament\Tables\Filters\Filter;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Toggle;
+use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\RichEditor;
+use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
-use Filament\Tables\Columns\BooleanColumn;
 use App\Filament\Resources\PostResource\Pages;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\PostResource\RelationManagers;
-use App\Filament\Resources\PostResource\RelationManagers\TagsRelationManager;
 use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
-use Filament\Tables\Columns\IconColumn;
+use App\Filament\Resources\PostResource\RelationManagers\TagsRelationManager;
 
 class PostResource extends Resource
 {
@@ -68,7 +66,11 @@ class PostResource extends Resource
                 TextColumn::make('created_at')->sortable()->date(),
             ])
             ->filters([
-                //
+                Filter::make('Published')
+                    ->query(fn (Builder $query) => $query->where('is_published', true)),
+                Filter::make('Unpublished')
+                    ->query(fn (Builder $query) => $query->where('is_published', false)),
+                SelectFilter::make('category')->relationship('category', 'name')
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
