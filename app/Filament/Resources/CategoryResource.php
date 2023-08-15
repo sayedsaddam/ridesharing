@@ -2,16 +2,21 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\CategoryResource\Pages;
-use App\Filament\Resources\CategoryResource\RelationManagers;
-use App\Models\Category;
+use Closure;
 use Filament\Forms;
-use Filament\Resources\Form;
-use Filament\Resources\Resource;
-use Filament\Resources\Table;
 use Filament\Tables;
+use App\Models\Category;
+use Illuminate\Support\Str;
+use Filament\Resources\Form;
+use Filament\Resources\Table;
+use Filament\Resources\Resource;
+use Filament\Forms\Components\Card;
+use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\CategoryResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\CategoryResource\RelationManagers;
+use Filament\Tables\Columns\TextColumn;
 
 class CategoryResource extends Resource
 {
@@ -25,7 +30,16 @@ class CategoryResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Card::make()
+                ->schema([
+                    TextInput::make('name')
+                    ->reactive()
+                    ->afterStateUpdated(function(Closure $set, $state){
+                        $set('slug', Str::slug($state));
+                    })
+                    ->required()->placeholder('Category Name'),
+                    TextInput::make('slug')->required()->placeholder('Category Slug'),
+                ])
             ]);
     }
 
@@ -33,13 +47,16 @@ class CategoryResource extends Resource
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('name')->sortable()->searchable(),
+                TextColumn::make('slug')->sortable()->searchable(),
+                TextColumn::make('created_at')->date()->sortable()
             ])
             ->filters([
                 //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
