@@ -13,6 +13,10 @@ class Post extends Model implements HasMedia
 
     protected $fillable = ['category_id', 'title', 'slug', 'content', 'is_published'];
 
+    protected $casts = [
+        'is_published' => 'boolean'
+    ];
+
     public function category(){
         return $this->belongsTo(Category::class);
     }
