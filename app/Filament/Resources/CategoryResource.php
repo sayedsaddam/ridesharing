@@ -3,7 +3,6 @@
 namespace App\Filament\Resources;
 
 use Closure;
-use Filament\Forms;
 use Filament\Tables;
 use App\Models\Category;
 use Illuminate\Support\Str;
@@ -12,10 +11,7 @@ use Filament\Resources\Table;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\TextInput;
-use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\CategoryResource\Pages;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\CategoryResource\RelationManagers;
 use App\Filament\Resources\CategoryResource\RelationManagers\PostsRelationManager;
 use Filament\Tables\Columns\TextColumn;
 
@@ -24,6 +20,8 @@ class CategoryResource extends Resource
     protected static ?string $model = Category::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-paper-clip';
+
+    protected static?string $recordTitleAttribute = 'name';
 
     protected static ?string $navigationGroup = 'Blog';
 

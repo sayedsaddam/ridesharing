@@ -5,7 +5,6 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\CategoryResource\RelationManagers\PostsRelationManager;
 use Closure;
 use App\Models\Tag;
-use Filament\Forms;
 use Filament\Tables;
 use Illuminate\Support\Str;
 use Filament\Resources\Form;
@@ -14,16 +13,15 @@ use Filament\Resources\Resource;
 use Filament\Forms\Components\Card;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
-use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\TagResource\Pages;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\TagResource\RelationManagers;
 
 class TagResource extends Resource
 {
     protected static ?string $model = Tag::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-tag';
+
+    protected static?string $recordTitleAttribute = 'name';
 
     protected static ?string $navigationGroup = 'Blog';
 
