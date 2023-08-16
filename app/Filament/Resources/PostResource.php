@@ -51,9 +51,9 @@ class PostResource extends Resource
                     ->required()->placeholder('Post Title'),
                     TextInput::make('slug')->required()->placeholder('Post Slug'),
                     SpatieMediaLibraryFileUpload::make('thumbnail')->collection('posts'),
-                    RichEditor::make('content')->required(),
-                    Toggle::make('is_published')->required()
-                ])
+                    RichEditor::make('content')->required()->columnSpan(2),
+                    Toggle::make('is_published')->required()->onColor('success')->offColor('danger')
+                ])->columns(2)
             ]);
     }
 

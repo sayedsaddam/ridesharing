@@ -73,7 +73,7 @@ class EmployeeResource extends Resource
                     TextInput::make('zip_code')->required()->placeholder('Zip Code')->maxLength(7),
                     DatePicker::make('birth_date')->required()->placeholder('Birth Date'),
                     DatePicker::make('date_hired')->required()->placeholder('Date Hired')
-                ])
+                ])->columns(2)
             ]);
     }
 
