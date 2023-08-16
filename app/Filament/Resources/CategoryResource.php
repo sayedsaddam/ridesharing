@@ -38,7 +38,7 @@ class CategoryResource extends Resource
                     })
                     ->required()->placeholder('Category Name'),
                     TextInput::make('slug')->required()->placeholder('Category Slug'),
-                ])
+                ])->columns(2)
             ]);
     }
 

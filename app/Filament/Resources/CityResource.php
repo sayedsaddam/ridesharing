@@ -43,6 +43,7 @@ class CityResource extends Resource
                         ->placeholder('City Name')
                         ->maxLength(255)
                 ])
+                ->columns(2)
             ]);
     }
 

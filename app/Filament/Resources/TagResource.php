@@ -38,7 +38,7 @@ class TagResource extends Resource
                     })
                     ->required()->placeholder('Tag Name'),
                     TextInput::make('slug')->required()->placeholder('Slug')
-                ])
+                ])->columns(2)
             ]);
     }
 

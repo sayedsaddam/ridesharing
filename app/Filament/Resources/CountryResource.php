@@ -40,6 +40,7 @@ class CountryResource extends Resource
                         ->required()
                         ->placeholder('Country Name'),
                 ])
+                ->columns(2)
             ]);
     }
 

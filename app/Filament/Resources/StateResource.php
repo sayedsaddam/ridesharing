@@ -38,6 +38,7 @@ class StateResource extends Resource
                         ->required(),
                     TextInput::make('name')->required()->placeholder('State Name')->maxLength(255),
                 ])
+                ->columns(2)
             ]);
     }
 
