@@ -58,6 +58,7 @@ class UserResource extends Resource
                         ->placeholder('Password Confirmation')
                         ->dehydrated(false),
                 ])
+                ->columns(2)
             ]);
     }
 
