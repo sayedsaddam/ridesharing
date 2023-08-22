@@ -11,14 +11,18 @@ use Filament\Resources\Resource;
 use Filament\Resources\Pages\Page;
 use Filament\Forms\Components\Card;
 use Illuminate\Support\Facades\Hash;
+use Filament\Forms\Components\Toggle;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Resources\Pages\CreateRecord;
+use Filament\Tables\Filters\TrashedFilter;
+use Filament\Forms\Components\CheckboxList;
 use App\Filament\Resources\UserResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\UserResource\RelationManagers;
+use App\Filament\Resources\UserResource\RelationManagers\RolesRelationManager;
 
 class UserResource extends Resource
 {
@@ -58,6 +62,15 @@ class UserResource extends Resource
                         ->minLength(6)
                         ->placeholder('Password Confirmation')
                         ->dehydrated(false),
+                    Toggle::make('is_admin')
+                        ->label('Is Admin')
+                        ->required()
+                        ->onColor('success'),
+                    CheckboxList::make('roles')
+                        ->relationship('roles',  'name')
+                        ->columns(2)
+                        ->helperText('Only Choose One!')
+                        ->required()
                 ])
                 ->columns(2)
             ]);
@@ -76,7 +89,7 @@ class UserResource extends Resource
                 TextColumn::make('deleted_at')->since(),
             ])
             ->filters([
-                //
+                TrashedFilter::make()
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -90,7 +103,7 @@ class UserResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            RolesRelationManager::class
         ];
     }
 
