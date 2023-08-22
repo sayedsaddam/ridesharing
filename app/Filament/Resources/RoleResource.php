@@ -12,6 +12,8 @@ use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\RoleResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\RoleResource\RelationManagers;
+use App\Filament\Resources\RoleResource\RelationManagers\PermissionRelationManager;
+use App\Filament\Resources\RoleResource\RelationManagers\PermissionsRelationManager;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\MultiSelect;
 use Filament\Forms\Components\TextInput;
@@ -21,7 +23,7 @@ class RoleResource extends Resource
 {
     protected static ?string $model = Role::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-user';
+    protected static ?string $navigationIcon = 'heroicon-s-cog';
 
     protected static ?string $navigationGroup = 'User Management';
 
@@ -32,12 +34,13 @@ class RoleResource extends Resource
                 Card::make()
                 ->schema([
                     TextInput::make('name')
-                        ->unique()
+                        ->unique(ignoreRecord: true)
                         ->required()
                         ->placeholder('Role Name'),
                     MultiSelect::make('permissions')
                         ->relationship('permissions', 'name')
                         ->preload()
+                        ->required()
                 ])
             ]);
     }
@@ -65,7 +68,7 @@ class RoleResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            PermissionsRelationManager::class,
         ];
     }
 
