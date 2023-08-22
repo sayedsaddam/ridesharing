@@ -10,14 +10,15 @@ use Filament\Resources\Table;
 use Filament\Resources\Resource;
 use Filament\Resources\Pages\Page;
 use Filament\Forms\Components\Card;
+use Illuminate\Support\Facades\Hash;
+use Filament\Tables\Columns\IconColumn;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Resources\Pages\CreateRecord;
 use App\Filament\Resources\UserResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\UserResource\RelationManagers;
-use Filament\Tables\Columns\TextColumn;
-use Illuminate\Support\Facades\Hash;
 
 class UserResource extends Resource
 {
@@ -68,8 +69,11 @@ class UserResource extends Resource
             ->columns([
                 TextColumn::make('id')->sortable(),
                 TextColumn::make('name')->sortable()->searchable(),
+                IconColumn::make('is_admin')->boolean(),
+                TextColumn::make('roles.name')->sortable()->searchable(),
                 TextColumn::make('email')->searchable(),
-                TextColumn::make('created_at')->since()
+                TextColumn::make('created_at')->since(),
+                TextColumn::make('deleted_at')->since(),
             ])
             ->filters([
                 //
